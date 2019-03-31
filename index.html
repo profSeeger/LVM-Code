@@ -12,19 +12,32 @@
     <link rel="stylesheet" href="css/styles.css?v=1.0">
 
     <style>
+        #LVM_result {
+            width=850px;
+        }
 
     </style>
+
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $("#LVM_result").load("http://indicator.extension.iastate.edu/projects/tasksheets/lvmCode.php");
+
+        })
+
+    </script>
 
 </head>
 
 <body>
+    <h2>Learning Visual and Mapping Code</h2>
     <h3>Repository for Professor Seeger</h3>
     <br>
-    Someday I need to make this into an actual page of information.
 
-    <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+    <div id="LVM_result">--</div>
 
-    </script>
+
 </body>
 
 </html>
