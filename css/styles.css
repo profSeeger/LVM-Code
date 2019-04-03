@@ -14,5 +14,6 @@ body {
 }
 
 .greenText {
-    color: rgba(76, 176, 80, 0.40);
+    /* color: rgba(76, 176, 80, 0.40); */
+    color: #4CAF50;
 }
