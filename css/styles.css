@@ -12,3 +12,7 @@ body {
 .greyText {
     color:darkgrey;
 }
+
+.greenText {
+    color: rgba(76, 176, 80, 0.40);
+}
