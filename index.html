@@ -28,8 +28,10 @@
             y = x.split("?")
             
             
-            if (y[1] !== 'undefined') {
+            if (y[1] !== '') {
                 document.getElementById("LVM_result").innerHTML =y[1];
+                //add to counter
+                //load code and replace this page
             }else {
                   $("#LVM_result").load("https://indicator.extension.iastate.edu/projects/tasksheets/lvmCode.php");
             }
