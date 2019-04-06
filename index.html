@@ -32,28 +32,24 @@
                 //document.getElementById("LVM_result").innerHTML =y[1];
                 params = y[1];  //this is just the parameters
                 paramArray = params.split("&")  //split the parameters on &
-                
+
                 ridParamString = paramArray[0];
                 typeParamString = paramArray[1];
-                
-            
+
+
                 ridParam = ridParamString.split("=")
                 typeParam = typeParamString.split("=")
-                rid = ridParam[0];
+                rid = ridParam[1];
                 type = typeParam[1];
-                
+
                 document.getElementById("LVM_result").innerHTML =rid+"---"+type;
+
+
+                //AJAX Call to update count
+                $.post( "lvmCodeCounter.php", { rid: rid, type: type } );
                 
                 
                 //load code and replace this page
-                
-                
-		     
-		      //AJAX Call to update count
-		      $.post( "lvmCodeCounter.php", { rid: rid, type: type } );
-                
-                
-                
                 
                 
                 
