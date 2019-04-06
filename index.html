@@ -23,11 +23,11 @@
         $(document).ready(function() {
             
             //get the URL. If it include an RID then just load that code, otherwise load the lvmcode page.
+        
+             x = window.location.href;
+            document.getElementById("LVM_result").innerHTML =x[1];
             
-            document.getElementById("LVM_result").innerHTML ="Page location is " + window.location.href;
-            
-            
-          //  $("#LVM_result").load("https://indicator.extension.iastate.edu/projects/tasksheets/lvmCode.php");
+          $("#LVM_result").load("https://indicator.extension.iastate.edu/projects/tasksheets/lvmCode.php");
 
         })
 
