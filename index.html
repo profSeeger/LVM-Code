@@ -25,13 +25,34 @@
             //get the URL. If it include an RID then just load that code, otherwise load the lvmcode page.
         
             x = window.location.href;
-            y = x.split("?")
+            y = x.split("?");  //splts the parameters off the URL so we can test to see if there are parameters
             
             
             if (y.length > 1 ) {
-                document.getElementById("LVM_result").innerHTML =y[1];
-                //add to counter
+                //document.getElementById("LVM_result").innerHTML =y[1];
+                params = y[1];  //this is just the parameters
+                paramArray = params.split("&")  //split the parameters on &
+                
+                ridParam= paramArray[0];
+                typeParam= paramArray[1];
+                
+                document.getElementById("LVM_result").innerHTML =ridParam+"---"+typeParam;
+                
                 //load code and replace this page
+                
+                
+		      type = $(this).data("type");
+		      rid = $(this).data("rid");
+
+		      //AJAX Call to update count
+		      $.post( "lvmCodeCounter.php", { rid: rid, type: type } );
+                
+                
+                
+                
+                
+                
+                
             }else {
                 
                // $('body').appe
