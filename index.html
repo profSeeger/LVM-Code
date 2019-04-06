@@ -46,19 +46,15 @@
 
 
                 //AJAX Call to update count
-                $.post( "http://indicator.extension.iastate.edu/projects/tasksheets/lvmCodeCounter.php", { rid: rid, type: type } );
+                $.post( "https://indicator.extension.iastate.edu/projects/tasksheets/lvmCodeCounter.php", { rid: rid, type: type } );
                 
                 
                 //load code and replace this page
                  
             }else {
-                
                // $('body').appe
                   $("#LVM_result").load("https://indicator.extension.iastate.edu/projects/tasksheets/lvmCode.php");
-
             }
-
-
         })
 
     </script>
