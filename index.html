@@ -28,11 +28,13 @@
             y = x.split("?")
             
             
-            if (y[1] !== '') {
+            if (y.length > 1 ) {
                 document.getElementById("LVM_result").innerHTML =y[1];
                 //add to counter
                 //load code and replace this page
             }else {
+                
+               // $('body').appe
                   $("#LVM_result").load("https://indicator.extension.iastate.edu/projects/tasksheets/lvmCode.php");
             }
 
@@ -44,12 +46,12 @@
 </head>
 
 <body>
+
     <h2>L<span class="greenText">earning</span> V<span class="greenText">isual and </span>M<span class="greenText">apping Code</span></h2>
     <h3>Code Examples by Professor Christopher J. Seeger, GISP</h3>
     <br>
 
     <div id="LVM_result">--</div>
-
 
 </body>
 
