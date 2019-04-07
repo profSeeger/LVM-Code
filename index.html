@@ -19,6 +19,7 @@
     </style>
 
     <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+    <script src="js/jquery.ajax-cross-origin.min.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -71,9 +72,7 @@
                     type: 'POST',
                     // make sure you respect the same origin policy with this url:
                     url: 'https://indicator.extension.iastate.edu/projects/tasksheets/lvmCodeRedirect.php',
-                    headers: {
-                        'Access-Control-Allow-Origin': '*'
-                    },
+                    crossOrigin: true,
                     data: { 
                         rid: rid,
                         type: type
