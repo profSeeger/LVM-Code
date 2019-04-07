@@ -55,6 +55,9 @@
                         type: type
                     },
                     //crossOrigin: true,
+                headers: {
+                    'Access-Control-Allow-Origin': '*'
+                },
                     function(data, status) {
                         document.getElementById("LVM_result").innerHTML = status + "  -hello";
                     }
