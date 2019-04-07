@@ -50,6 +50,7 @@
                     type: type
                 });
 
+                /*
                 $.post("https://indicator.extension.iastate.edu/projects/tasksheets/lvmCodeRedirect.php", {
                         rid: rid,
                         type: type
@@ -63,6 +64,28 @@
                     }
                 );
 
+  */              
+                
+                
+                $.ajax({
+                    type: 'POST',
+                    // make sure you respect the same origin policy with this url:
+                    url: 'https://indicator.extension.iastate.edu/projects/tasksheets/lvmCodeRedirect.php',
+                    headers: {
+                        'Access-Control-Allow-Origin': '*'
+                    },
+                    data: { 
+                        rid: rid,
+                        type: type
+                    },
+                    success: function(msg){
+                            alert('wow' + msg);
+                }
+                });
+                
+                
+                
+                
 
                 /*    
                     $.ajax({
