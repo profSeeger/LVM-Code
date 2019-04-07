@@ -45,7 +45,9 @@
                 
                 //Add in error detection
                 integerTest = Number.isInteger(rid);
-                alert (integerTest);
+               if (integerTest != true) {
+                    alert("The URL is not valid");   
+               };
                 
 
                // document.getElementById("LVM_result").innerHTML =rid+"---"+type;
