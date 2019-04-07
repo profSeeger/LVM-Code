@@ -48,10 +48,22 @@
                 
                 $.post("https://indicator.extension.iastate.edu/projects/tasksheets/lvmCodeRedirect.php", 
                     { rid: rid, type: type },
+                       crossOrigin: true,
                     function(data,status){
                         document.getElementById("LVM_result").innerHTML = status + "  -hello";
                     }
                 );
+                
+                
+            /*    
+                $.ajax({
+                    crossOrigin: true,
+                    url: url,
+                `   `success: function(data) {
+                    console.log(data);
+                }
+                */
+    });
                 
                 
                 
