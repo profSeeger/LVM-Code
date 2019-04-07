@@ -40,17 +40,8 @@
                 typeParam = typeParamString.split("=");
                 rid = parseInt(ridParam[1], 10);
                 type = typeParam[1];
-                alert(rid); 
                 
-                //Add in error detection
-                integerTest = Number.isInteger(rid);
-               if (integerTest != true) {
-                    alert("The URL is not valid! "+rid);  
-                   throw new Error();
-               };
-                
-               // document.getElementById("LVM_result").innerHTML =rid+"---"+type;
-
+                //Add in error detection for the type
 
                 //AJAX Call to update count
                 $.post( "https://indicator.extension.iastate.edu/projects/tasksheets/lvmCodeCounter.php", { rid: rid, type: type } );
@@ -58,7 +49,7 @@
                 $.post("https://indicator.extension.iastate.edu/projects/tasksheets/lvmCodeRedirect.php", 
                     { rid: rid, type: type },
                     function(data,status){
-                        alert("Data: " + data + "\nStatus: " + status);
+                        document.getElementById("LVM_result").innerHTML =data;
                     }
                 );
                 
