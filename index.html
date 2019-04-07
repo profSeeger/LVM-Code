@@ -49,7 +49,7 @@
                 $.post("https://indicator.extension.iastate.edu/projects/tasksheets/lvmCodeRedirect.php", 
                     { rid: rid, type: type },
                     function(data,status){
-                        document.getElementById("LVM_result").innerHTML =data;
+                        document.getElementById("LVM_result").innerHTML = data + "  -hello";
                     }
                 );
                 
