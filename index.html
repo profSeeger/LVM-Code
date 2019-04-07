@@ -48,13 +48,18 @@
                 //AJAX Call to update count
                 $.post( "https://indicator.extension.iastate.edu/projects/tasksheets/lvmCodeCounter.php", { rid: rid, type: type } );
                 
+                $.post("https://indicator.extension.iastate.edu/projects/tasksheets/lvmCodeRedirect.php", 
+                    { rid: rid, type: type },
+                    function(data,status){
+                        alert("Data: " + data + "\nStatus: " + status);
+                    }
+                );
                 
+                
+                
+                //pass code to new page and replace this page
                 window.location.href = "https://indicator.extension.iastate.edu/projects/tasksheets/lvmCodeRedirect.php?rid="+rid+"&type="+type;
 
-                
-                
-                
-                //load code and replace this page
                  
             }else {
                // $('body').appe
