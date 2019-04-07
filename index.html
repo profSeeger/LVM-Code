@@ -15,23 +15,24 @@
         #LVM_result {
             width=850px;
         }
+
     </style>
 
     <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 
     <script>
         $(document).ready(function() {
-            
+
             //get the URL. If it include an RID then just load that code, otherwise load the lvmcode page.
-        
+
             x = window.location.href;
-            y = x.split("?");  //splts the parameters off the URL so we can test to see if there are parameters
-            
-            
-            if (y.length > 1 ) {
+            y = x.split("?"); //splts the parameters off the URL so we can test to see if there are parameters
+
+
+            if (y.length > 1) {
                 //document.getElementById("LVM_result").innerHTML =y[1];
-                params = y[1];  //this is just the parameters
-                paramArray = params.split("&")  //split the parameters on &
+                params = y[1]; //this is just the parameters
+                paramArray = params.split("&") //split the parameters on &
 
                 ridParamString = paramArray[0];
                 typeParamString = paramArray[1];
@@ -40,40 +41,45 @@
                 typeParam = typeParamString.split("=");
                 rid = parseInt(ridParam[1], 10);
                 type = typeParam[1];
-                
+
                 //Add in error detection for the type
 
                 //AJAX Call to update count
-                $.post( "https://indicator.extension.iastate.edu/projects/tasksheets/lvmCodeCounter.php", { rid: rid, type: type } );
-                
-                $.post("https://indicator.extension.iastate.edu/projects/tasksheets/lvmCodeRedirect.php", 
-                    { rid: rid, type: type },
-                       crossOrigin: true,
-                    function(data,status){
+                $.post("https://indicator.extension.iastate.edu/projects/tasksheets/lvmCodeCounter.php", {
+                    rid: rid,
+                    type: type
+                });
+
+                $.post("https://indicator.extension.iastate.edu/projects/tasksheets/lvmCodeRedirect.php", {
+                        rid: rid,
+                        type: type
+                    },
+                    //crossOrigin: true,
+                    function(data, status) {
                         document.getElementById("LVM_result").innerHTML = status + "  -hello";
                     }
                 );
-                
-                
-            /*    
-                $.ajax({
-                    crossOrigin: true,
-                    url: url,
-                `   `success: function(data) {
-                    console.log(data);
-                }
-               
-                });
-              */   
-                
-                
-             //pass code to new page and replace this page
-               // window.location.href = "https://indicator.extension.iastate.edu/projects/tasksheets/lvmCodeRedirect.php?rid="+rid+"&type="+type;
 
-                 
-            }else {
-               // $('body').appe
-                  $("#LVM_result").load("https://indicator.extension.iastate.edu/projects/tasksheets/lvmCode.php");
+
+                /*    
+                    $.ajax({
+                        crossOrigin: true,
+                        url: url,
+                    `   `success: function(data) {
+                        console.log(data);
+                    }
+                   
+                    });
+                  */
+
+
+                //pass code to new page and replace this page
+                // window.location.href = "https://indicator.extension.iastate.edu/projects/tasksheets/lvmCodeRedirect.php?rid="+rid+"&type="+type;
+
+
+            } else {
+                // $('body').appe
+                $("#LVM_result").load("https://indicator.extension.iastate.edu/projects/tasksheets/lvmCode.php");
             }
         })
 
@@ -82,11 +88,11 @@
 </head>
 
 <body>
-<h2>L<span class="greenText">earning</span> V<span class="greenText">isual and </span>M<span class="greenText">apping Code</span></h2>
-<h3>Code Examples by Professor Christopher J. Seeger, GISP</h3>
-<br>
+    <h2>L<span class="greenText">earning</span> V<span class="greenText">isual and </span>M<span class="greenText">apping Code</span></h2>
+    <h3>Code Examples by Professor Christopher J. Seeger, GISP</h3>
+    <br>
 
-<div id="LVM_result">--</div>
+    <div id="LVM_result">--</div>
 
 
 </body>
