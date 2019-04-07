@@ -41,6 +41,12 @@
                 typeParam = typeParamString.split("=")
                 rid = ridParam[1];
                 type = typeParam[1];
+                
+                
+                //Add in error detection
+                integerTest = Number.isInteger(rid);
+                alert (integerTest);
+                
 
                // document.getElementById("LVM_result").innerHTML =rid+"---"+type;
 
