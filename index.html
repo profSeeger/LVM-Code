@@ -46,7 +46,8 @@
                 //Add in error detection
                 integerTest = Number.isInteger(rid);
                if (integerTest != true) {
-                    alert("The URL is not valid");   
+                    alert("The URL is not valid");  
+                   throw new Error();
                };
                 
 
