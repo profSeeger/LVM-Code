@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+<meta name="description" content="Leaflet Earthquakes with user selection options - 2020" />
+
+<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+
+<style>
+	html, body {
+    width:100%;
+    height: 100%;
+	margin:0;
+    padding:0;
+}
+
+#map {
+    width:100%;
+    height:100%;
+}
+</style>
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+
+
+
+<script>
+var data;
+console.clear();
+
+//var map = L.map('map').setView([43, -93], 2);
+
+var map = L.map('map', {
+  'center': [43, -93],
+  'zoom': 4,
+  'worldCopyJump': true,
+});
+
+
+// add an OpenStreetMap tile layer
+osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+  maxZoom: 18
+}).addTo(map);
+map.doubleClickZoom.enable();
+
+
+//dateline issue
+/*
+marker = L.marker([-13.9942, 166.5711],
+    {
+    draggable: false,
+    title: "kj",
+    opacity: 0.75
+}).addTo(map);
+//map.setView(new L.LatLng(34, -89), 2);
+*/
+
+
+
+
+
+
+//default rendering options
+var geojsonMarkerOptions = {
+  radius: 5,
+  fillColor: "#ff7800",
+  color: "#000",
+  weight: 0,
+  opacity: 1,
+  fillOpacity: 0.3
+};
+
+//set color of circle based on magnitude
+function getColor(d) {
+  return d > 6 ? '#FF0000' : //red
+    d > 4 ? 'yellow' :
+    d > 2 ? 'green' :
+    d > 1 ? '#808080' : //black
+    '#000'; //grey
+}
+
+
+
+
+
+
+
+makeFilteredGroups = function(geojsonN, magLevelA, magLevelB) {
+
+  //instead of geojsonLayer = we will concate the geojsonN value to create a dynamic variable
+
+  window['geojsonLayer' + geojsonN] = L.geoJson(myData, {
+    filter: function(feature, layer) {
+      return feature.properties.mag > magLevelA && feature.properties.mag < magLevelB;
+    },
+    pointToLayer: function(feature, latlng) {
+      return L.circleMarker(latlng, geojsonMarkerOptions);
+    },
+    style: function(feature) {
+      //note this is how you access contents of each quake within L.geoJson
+      //console.log(feature.properties.mag + " mag, "+feature.geometry.coordinates[0] + ", "+feature.geometry.coordinates[1]);
+
+      return {
+        radius: (feature.properties.mag * 1.5) + 1,
+        fillColor: getColor(feature.properties.mag)
+      };
+    },
+    onEachFeature: function(feature, layer) {
+      var myDate = new Date(feature.properties.time *1);
+      gmtTime = myDate.toGMTString();
+      yourTime = myDate.toLocaleString();
+      depth = feature.geometry.coordinates[2] + " km";
+
+      layer.bindPopup("Mag: " + feature.properties.mag + "<br> Depth: " + depth + "<br> Place: " + feature.properties.place + "<br>GMT: " + gmtTime + "<br>Your Time: " + yourTime);
+    }
+  }).addTo(map);
+  //console.log("geojsonLayer" + geojsonN + "----- Mag between " + magLevelA + " and " + magLevelB);
+
+
+
+  //update count value in button for the particular button range
+  x = window['geojsonLayer' + geojsonN].getLayers().length;
+  switch (geojsonN) {
+    case 'All':
+      $("#showAll").val("Show All " + x);
+      break;
+    case 'NF':
+      $("#notFelt").val("Not Felt (" + x + ")");
+      break;
+    case 0:
+      $("#mag0").val("0.0 - 1.0  (" + x + ")");
+      break;
+    case 1:
+      $("#mag1").val("1.0 - 2.5  (" + x + ")");
+      break;
+    case 2:
+      $("#mag2").val("2.5 - 4.5 (" + x + ")");
+      break;
+    case 4:
+      $("#mag4").val("4.5 - 6.0 (" + x + ")");
+      break;
+    case 6:
+      $("#mag6").val("6.0+ (" + x + ")");
+      break;
+  }
+
+}; //end makeFilteredGroups function
+
+
+
+
+function clearAll() {
+  map.removeLayer(geojsonLayerAll);
+  map.removeLayer(geojsonLayerNF);
+  map.removeLayer(geojsonLayer0);
+  map.removeLayer(geojsonLayer1);
+  map.removeLayer(geojsonLayer2);
+  map.removeLayer(geojsonLayer4);
+  map.removeLayer(geojsonLayer6);
+}
+
+$('#clearMap').click(function() {
+  clearAll();
+});
+
+$('#showAll').click(function() {
+  clearAll();
+  geojsonLayerAll.addTo(map);
+});
+
+$('#notFelt').click(function() {
+  clearAll();
+  geojsonLayerNF.addTo(map);
+});
+
+$('#mag0').click(function() {
+  clearAll(); //cleans up map
+  geojsonLayer0.addTo(map);
+});
+
+$('#mag1').click(function() {
+  clearAll(); //cleans up map
+  geojsonLayer1.addTo(map);
+});
+
+$('#mag2').click(function() {
+  clearAll(); //cleans up map
+  geojsonLayer2.addTo(map);
+});
+
+$('#mag4').click(function() {
+  clearAll(); //cleans up map
+  geojsonLayer4.addTo(map);
+});
+
+$('#mag6').click(function() {
+  clearAll(); //cleans up map
+  geojsonLayer6.addTo(map);
+});
+
+
+
+
+//*****Setup default URL to load and URL select meu
+var myURL = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson';
+loadData();
+
+$("#myURL").change(function() {
+  baseURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/";
+  myURL = baseURL + $("#myURL").val();
+  console.log(myURL);
+  loadData();
+
+  selectedTitleText = $("#myURL option:selected").text();
+  titleWords = selectedTitleText.split(" ");
+
+  $("#selectedTitle1").html(titleWords[0]);
+  $("#selectedTitle2").html(titleWords[1] + " " + titleWords[2]);
+
+});
+
+
+//*****Load the Data*****
+//data = ''; //clear var
+var myData; //will be used to put the data in the global scope
+
+function loadData() {
+
+  map.eachLayer(function(layer) {
+    map.removeLayer(layer);
+    map.addLayer(osm);
+  });
+
+
+
+  $.ajax({
+    url: myURL,
+    dataType: 'json',
+  }).done(function(data) {
+    totalNumber = data.features.length;
+    $("#totalNumber").html(totalNumber);
+    console.log("Total Quakes: " + totalNumber);
+
+    myData = data;
+
+    //provide the layer name number and the > < magnitudes
+    makeFilteredGroups('All', -2, 10);
+    makeFilteredGroups('NF', -2, 0); //not felt
+    makeFilteredGroups(0, 0, 1); // 0 - 1
+    makeFilteredGroups(1, 1, 2.5); //1 - 2.5
+    makeFilteredGroups(2, 2.5, 4.5);
+    makeFilteredGroups(4, 4.5, 6);
+    makeFilteredGroups(6, 6, 10);
+  });
+}
+
+
+</script>
+
+
+
+
+
+
+  </head>
+  <body>
+
+
+<strong><span id = "selectedTitle1">All</span> Earthquakes During The <span id = "selectedTitle2">Past Hour</span>: </strong><span id = "totalNumber"></span><br>
+<br>
+
+Select magnitude and event range to display: <br>
+
+<select id = "myURL">
+	  <option value="all_hour.geojson">All Past Hour</option>
+
+	  <option value="all_day.geojson">All Past Day</option>
+
+	  	  <option value="all_week.geojson">All Past Week</option>
+
+	  	  <option value="all_month.geojson">All Past Month</option>
+
+
+
+	   <option value="significant_day.geojson">Significant Past Day</option>
+
+	 <option value="significant_week.geojson">Significant Past Week</option>
+
+	  	 <option value="significant_month.geojson">Significant Past Month</option>
+	  </select>
+
+
+
+
+<input type="button" name="button" id="clearMap" value="Clear All">
+
+<input type="button" name="button" id="showAll" value="Show All">
+
+<br>
+
+<input type="button" name="button" id="notFelt" value="not felt">
+
+<input type="button" name="button" id="mag0" value="0.0 - 1.0">
+
+<input type="button" name="button" id="mag1" value="1.0 - 2.5">
+
+<input type="button" name="button" id="mag2" value="2.5 - 4.5">
+
+<input type="button" name="button" id="mag4" value="4.0 - 6.0">
+
+	  <input type="button" name="button" id="mag6" value="6.0+">
+<div id="map" style="width:900px;height:500px;"></div>
+	  <br><em>
+	  Note: improvements to make include some form of loading bar and issues with <br>repeating data across the date line beyond what worldCopyJump can provide.</em>
+  </body>
+</html>
