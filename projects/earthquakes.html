@@ -27,8 +27,63 @@
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
 
 
+  </head>
+  <body>
 
-<script>
+
+<strong><span id = "selectedTitle1">All</span> Earthquakes During The <span id = "selectedTitle2">Past Hour</span>: </strong><span id = "totalNumber"></span><br>
+<br>
+
+Select magnitude and event range to display: <br>
+
+<select id = "myURL">
+	  <option value="all_hour.geojson">All Past Hour</option>
+
+	  <option value="all_day.geojson">All Past Day</option>
+
+	  	  <option value="all_week.geojson">All Past Week</option>
+
+	  	  <option value="all_month.geojson">All Past Month</option>
+
+
+
+	   <option value="significant_day.geojson">Significant Past Day</option>
+
+	 <option value="significant_week.geojson">Significant Past Week</option>
+
+	  	 <option value="significant_month.geojson">Significant Past Month</option>
+	  </select>
+
+
+
+
+<input type="button" name="button" id="clearMap" value="Clear All">
+
+<input type="button" name="button" id="showAll" value="Show All">
+
+<br>
+
+<input type="button" name="button" id="notFelt" value="not felt">
+
+<input type="button" name="button" id="mag0" value="0.0 - 1.0">
+
+<input type="button" name="button" id="mag1" value="1.0 - 2.5">
+
+<input type="button" name="button" id="mag2" value="2.5 - 4.5">
+
+<input type="button" name="button" id="mag4" value="4.0 - 6.0">
+
+	  <input type="button" name="button" id="mag6" value="6.0+">
+<div id="map" style="width:900px;height:500px;"></div>
+	  <br><em>
+	  Note: improvements to make include some form of loading bar and issues with <br>repeating data across the date line beyond what worldCopyJump can provide.</em>
+  </body>
+
+
+
+
+
+  <script>
 var data;
 console.clear();
 
@@ -267,55 +322,5 @@ function loadData() {
 
 
 
-  </head>
-  <body>
 
-
-<strong><span id = "selectedTitle1">All</span> Earthquakes During The <span id = "selectedTitle2">Past Hour</span>: </strong><span id = "totalNumber"></span><br>
-<br>
-
-Select magnitude and event range to display: <br>
-
-<select id = "myURL">
-	  <option value="all_hour.geojson">All Past Hour</option>
-
-	  <option value="all_day.geojson">All Past Day</option>
-
-	  	  <option value="all_week.geojson">All Past Week</option>
-
-	  	  <option value="all_month.geojson">All Past Month</option>
-
-
-
-	   <option value="significant_day.geojson">Significant Past Day</option>
-
-	 <option value="significant_week.geojson">Significant Past Week</option>
-
-	  	 <option value="significant_month.geojson">Significant Past Month</option>
-	  </select>
-
-
-
-
-<input type="button" name="button" id="clearMap" value="Clear All">
-
-<input type="button" name="button" id="showAll" value="Show All">
-
-<br>
-
-<input type="button" name="button" id="notFelt" value="not felt">
-
-<input type="button" name="button" id="mag0" value="0.0 - 1.0">
-
-<input type="button" name="button" id="mag1" value="1.0 - 2.5">
-
-<input type="button" name="button" id="mag2" value="2.5 - 4.5">
-
-<input type="button" name="button" id="mag4" value="4.0 - 6.0">
-
-	  <input type="button" name="button" id="mag6" value="6.0+">
-<div id="map" style="width:900px;height:500px;"></div>
-	  <br><em>
-	  Note: improvements to make include some form of loading bar and issues with <br>repeating data across the date line beyond what worldCopyJump can provide.</em>
-  </body>
 </html>
