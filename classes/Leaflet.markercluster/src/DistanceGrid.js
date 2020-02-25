@@ -92,8 +92,7 @@ L.DistanceGrid.prototype = {
 						for (k = 0, len = cell.length; k < len; k++) {
 							obj = cell[k];
 							dist = this._sqDist(objectPoint[L.Util.stamp(obj)], point);
-							if (dist < closestDistSq ||
-								dist <= closestDistSq && closest === null) {
+							if (dist < closestDistSq) {
 								closestDistSq = dist;
 								closest = obj;
 							}
@@ -106,8 +105,7 @@ L.DistanceGrid.prototype = {
 	},
 
 	_getCoord: function (x) {
-		var coord = Math.floor(x / this._cellSize);
-		return isFinite(coord) ? coord : x;
+		return Math.floor(x / this._cellSize);
 	},
 
 	_sqDist: function (p, p2) {
