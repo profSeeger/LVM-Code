@@ -18,3 +18,32 @@ df #this only prints a subset of the data frame as ther is a max that can be pri
 
 #to see jsut he header and first six row of the data
 head(df)
+
+sum(df$cases)
+sum(df$deaths)
+
+install.packages("dplyr")
+library(dplyr)
+
+install.packages("ggplot2")
+library(ggplot2)
+options(stringsAsFactors = FALSE)
+
+myStateDF <- select(filter(df, state == "North Dakota"), c(date, state, cases, deaths))
+
+head(myStateDF)
+
+
+
+# convert date column to date class
+myStateDF$date <- as.Date(myStateDF$date, format = "%m/%d/%y")
+
+# plot the data using ggplot
+ggplot(data = myStateDF, aes(x = date, y = cases)) +
+  geom_point() +
+  labs(x = "Date",
+       y = "Total Cases",
+       title = "Covid 19 Cases",
+       subtitle = "ND")
+
+
