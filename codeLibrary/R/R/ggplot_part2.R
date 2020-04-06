@@ -55,8 +55,8 @@ p + geom_point(aes(colour = factor(state)), size = 4)  #Uses the state - so Wyom
 #optionally use shapes instead of colored dots
 p + geom_point(aes(shape = factor(state)), size = 4)  #there appears to be only six shapes
 
-#for some reason this part not working !!!!!
-p + labs(x = "Rancher", y = "Herd Size",title = "Vaccine Study Ranches and Herd Size", subtitle = "Dr. Seeger, April 2020")
+l <-labs(x = "Rancher", y = "Herd Size",title = "Vaccine Study Ranches and Herd Size", subtitle = "Dr. Seeger, April 2020")
+p + geom_point(size = 4) + l
 
 
 # ggplot scatterplot colored at herd size intervals ######################################################
@@ -66,7 +66,7 @@ ggplot(data = df_herds, aes(x = rancher, y = herdSize)) +
     values = c("(-Inf,200]" = "black",
         "(200,400]" = "yellow",
         "(400, Inf]" = "red"),
-        labels = c("<= 17", "17 < herdSizec <= 19", "> 19")) +
+        labels = c("<= 200", "200 to 400", "> 400")) +
     labs(x = "State",
        y = "Herd Size",
        title = "Vaccine Study Ranches and Herd Size",

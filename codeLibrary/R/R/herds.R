@@ -26,7 +26,7 @@ range(df$herdSize) #150 653
 quantile( x = df$herdSize, probs = .5) #234
 quantile( x = df$herdSize, probs = c(.33, .66)) #212 324 
 
-sd( df$herdSize) 
+sd( df$herdSize) # 186.5153
 summary(df)
 
 
