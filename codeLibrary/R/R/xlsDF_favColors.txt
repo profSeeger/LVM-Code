@@ -1,0 +1,16 @@
+color,percent
+Blue,0.44
+Green,0.12
+Red,0.11
+Black,0.04
+Purple/Violet,0.04
+Brown,0.03
+Pink/Rose,0.03
+Beige/Tan,0.02
+White,0.02
+Grey,0.02
+Yellow,0.02
+Mauve,0.02
+Fushia,0.02
+Maroon,0.02
+Other,0.05
