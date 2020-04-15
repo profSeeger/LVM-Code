@@ -18,16 +18,21 @@ covidStateURL_DF
 
 
 
+filtered_county <- select(filter(covidCountyURL_DF, state == "Iowa"), c(date, state, county, cases, deaths))
+
+export(filtered_county, file = "covid_county.txt", format = "csv")
+
+
+
 
 
 # Filter COVID data, make plot and export data ############################################################
 
 # filtering requires the dplyr or tidyverse package
 
-
 head(covidStateURL_DF)
 
-#select the state of interest
+#select the state of interest -it woud be nice if changing this could be interactive.
 theState <- "Iowa"
 
 
@@ -57,6 +62,8 @@ totalDeaths <- filtered_NDcovid_DF$deaths[days]
 subtitle <- paste("As of ", asOfDate, " Total cases:", totalCases, " Total deaths:", totalDeaths)
 
 
+
+#plot1
 ggplot(filtered_NDcovid_DF, aes(x=date, y=cases)) +
   geom_line() +
   labs(x = "Date",
@@ -65,7 +72,9 @@ ggplot(filtered_NDcovid_DF, aes(x=date, y=cases)) +
        subtitle = subtitle)
 
 
-# optionally plot as points
+
+
+# plot 2 - optionally plot as points
 ggplot(data = filtered_NDcovid_DF, aes(x = date, y = cases)) +
   geom_point() +
   labs(x = "Deaths",
@@ -74,14 +83,16 @@ ggplot(data = filtered_NDcovid_DF, aes(x = date, y = cases)) +
        subtitle = subtitle)
 
 
-# optionally include cases and deaths - dashes added as a style
+
+
+# plot 3 - optionally include cases and deaths - dashes added as a style
 ## reference https://www.datanovia.com/en/blog/how-to-create-a-ggplot-with-multiple-lines/
 ggplot(data = filtered_NDcovid_DF, aes(x = date)) +
   geom_line(aes(y = cases), color="steelblue", linetype="twodash")  +
   geom_line(aes(y = deaths), color = "red") +
   scale_colour_manual("", 
-                      breaks = c("Cases", "Deaths"),
-                      values = c("blue", "red")) +
+    breaks = c("Cases", "Deaths"),
+    values = c("blue", "red")) +
   labs(x = "Deaths",
        y = "Cases",
        title = mainTitle,
