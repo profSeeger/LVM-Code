@@ -1,0 +1,10 @@
+name: shinydemo
+title:
+username:
+account: profseeger
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2281614
+bundleId: 3133255
+url: https://profseeger.shinyapps.io/shinydemo/
+when: 1589225570.92245
