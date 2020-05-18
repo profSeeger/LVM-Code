@@ -4,3 +4,6 @@ library(rio)
 
 # read covid19 from your local
 covid19 <- read.csv("us-counties.csv", header = T)
+
+
+df <- import("us-states-covid/March-us-states-covid.csv")
