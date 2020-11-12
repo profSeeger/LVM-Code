@@ -12,13 +12,30 @@ data(us.cities)
 geojson_json(us.cities[1:2, ], lat = 'lat', lon = 'long')
 
 
-myURL <- "https://indicatorstest.extension.iastate.edu/projects/DSPG/database/tinyTests/index.php"
-destfile <- "tinyTests.geojson"
+
+
+install.packages("rio")
+library(rio)
+
+
+myURL <- "https://indicators.extension.iastate.edu/projects/DSPG/database/tinyTests"
+
+chris <- import(myURL, format = "json")
+
+
+#Path to current file
+rstudioapi::getSourceEditorContext()$path
+
+#path to current directory
+myPath <- dirname(rstudioapi::getSourceEditorContext()$path)
+
+
+destfile <- paste0(myPath, "/tinyTests2.geojson")
 
 # Apply download.file function in R
 download.file(myURL, destfile)
 
-
+download.file(myURL, destfile, method = "auto")
 
 
 
